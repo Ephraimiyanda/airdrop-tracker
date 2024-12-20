@@ -20,7 +20,7 @@ export const authOptions = {
           };
           if (data) {
             const res = await fetch(
-              `${process.env.NEXTAUTH_URL_INTERNAL}/api/routes/login`,
+              `${process.env.NEXTAUTH_URL}/api/routes/login`,
               {
                 headers: {
                   "Content-Type": `application/json`,
