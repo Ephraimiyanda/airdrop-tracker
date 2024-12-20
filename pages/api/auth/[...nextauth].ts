@@ -45,7 +45,7 @@ export const authOptions = {
           }
         } catch (error) {
           //@ts-ignore
-          throw new Error("An error has occured");
+          // throw new Error("An error has occured");
         }
       },
     }),
