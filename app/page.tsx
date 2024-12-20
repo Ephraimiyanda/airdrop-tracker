@@ -1,15 +1,6 @@
 "use client";
 import {
   Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Link,
-  Image,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Navbar,
   NavbarBrand,
   NavbarContent,
