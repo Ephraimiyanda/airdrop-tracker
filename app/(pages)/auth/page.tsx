@@ -96,7 +96,7 @@ export default function App() {
                   signIn("credentials", {
                     username: userName,
                     password,
-                    redirect: false,
+                    redirect: true,
                     callbackUrl: "/",
                   });
                 }}
