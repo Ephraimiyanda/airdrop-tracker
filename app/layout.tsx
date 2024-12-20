@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Airdrop trackere",
+  title: "Airdrop tracker",
   description: "create trackers for your airdrops,making them easy to manage",
 };
 
