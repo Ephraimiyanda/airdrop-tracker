@@ -124,6 +124,14 @@ export default function Home() {
     }
   };
 
+   if (session.status === "loading") {
+    return (
+      <div className="m-auto w-full h-full min-h-screen flex justify-center items-center">
+        <Spinner color="primary" size="md" />
+      </div>
+    );
+  }
+
   return (
     <div className="dark:bg-gray-800 min-h-screen">
       <Navbar
