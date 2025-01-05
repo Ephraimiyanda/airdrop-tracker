@@ -15,10 +15,14 @@ import {
   Select,
   SelectItem,
   Spinner,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
 } from "@nextui-org/react";
 import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { TrackerCard } from "./components/card/trackerCard";
 import { div } from "framer-motion/client";
 import { CiSearch } from "react-icons/ci";
@@ -40,6 +44,13 @@ export default function Home() {
   const [airdropLoading, setAirdropLoading] = useState(true);
   const [airdrops, setAirdrops] = useState<airdrops[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [airdropStatusFilter, setAirdropStatusFilter] = useState<Selection>(
+    new Set(["all"])
+  );
+  const selectedAirdropStatusFilterValue = useMemo(
+    () => Array.from(airdropStatusFilter).join(", ").replace(/_/g, ""),
+    [airdropStatusFilter]
+  );
   //secure page
   const session = useSession({
     required: true,
@@ -128,6 +139,25 @@ export default function Home() {
     }
   };
 
+  //filtered  airdrops
+  const filteredAirdrops = useMemo(() => {
+    return airdrops.filter((item) => {
+      const matchesSearch = searchValue
+        ? item.name
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase())
+        : true;
+
+      const matchesStatus =
+        selectedAirdropStatusFilterValue === "all" ||
+        selectedAirdropStatusFilterValue.toLocaleLowerCase() ===
+          item.status.toLocaleLowerCase();
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [airdrops, searchValue, selectedAirdropStatusFilterValue]);
+
+  //return loading screen
   if (session.status === "loading") {
     return (
       <div className="m-auto w-full h-full min-h-screen flex justify-center items-center">
@@ -154,27 +184,43 @@ export default function Home() {
           justify="center"
           className="gap-2 sm:flex hidden  flex-[2]"
         >
-          <NavbarItem className="flex justify-normal gap-2 items-center">
-            <input
-              required
-              name="link"
-              placeholder="Search for airdrop's"
-              type="url"
-              className={
-                "dark:bg-[#4b535f] bg-white text-black dark:text-white h-10 py-3 px-2 rounded-lg shadow-sm border-1 w-full border-gray-400 outline-none focus:border-black "
-              }
-              value={searchValue}
-              onChange={(e) => {
-                setSearchValue(e.target.value);
-              }}
-            />
-            <Button color="primary" isIconOnly onPress={onOpen}>
-              <CiSearch color="white" size={18} />
-            </Button>
-            <Button color="default" isIconOnly onPress={onOpen}>
-              <IoFilterOutline color="black" size={18} />
-            </Button>
-            
+          <NavbarItem className="flex items-center gap-2 w-full">
+            <div className="flex items-center gap-2 bg-white dark:bg-[#4b535f] text-black dark:text-white h-10 px-3 rounded-lg shadow-sm border border-gray-400 focus-within:border-black w-full">
+              <CiSearch color="gray" size={20} />
+              <input
+                required
+                name="link"
+                placeholder="Search for airdrop's"
+                type="url"
+                className="bg-transparent flex-1 outline-none"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </div>
+            <Dropdown placement="bottom-end" className="dark:bg-[#626974]">
+              <DropdownTrigger>
+                <Button color="default" isIconOnly onPress={onOpen}>
+                  <IoFilterOutline color="black" size={18} />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="status filter"
+                variant="flat"
+                className="text-black"
+                classNames={{
+                  base: "dark:bg-[#626974]",
+                  list: "dark:text-white",
+                }}
+                selectedKeys={airdropStatusFilter}
+                selectionMode="single"
+                onSelectionChange={setAirdropStatusFilter}
+              >
+                <DropdownItem key="all">All</DropdownItem>
+                <DropdownItem key="new">New</DropdownItem>
+                <DropdownItem key="Ongoing">Ongoing</DropdownItem>
+                <DropdownItem key="Done">Done</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end" className="gap-2">
@@ -308,7 +354,7 @@ export default function Home() {
       <div className="max-w-[1024px] grid gap-4 grid-cols-1 content-start items-start auto-rows-auto gap-x-3 gap-y-3 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 px-3 py-8 m-auto w-full h-full ">
         {airdrops &&
           !airdropLoading &&
-          airdrops.map((airdrop) => (
+          filteredAirdrops.map((airdrop) => (
             <TrackerCard
               key={airdrop._id}
               id={airdrop._id}
@@ -330,7 +376,7 @@ export default function Home() {
           <Spinner color="primary" size="md" />
         </div>
       )}
-      {airdrops && !airdropLoading && airdrops.length === 0 && (
+      {airdrops && !airdropLoading && filteredAirdrops.length === 0 && (
         <div className="m-auto w-full h-full flex justify-center items-center">
           <p className="text center">No airdrop tracker available</p>
         </div>
