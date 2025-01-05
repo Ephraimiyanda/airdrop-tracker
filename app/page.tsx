@@ -176,7 +176,7 @@ export default function Home() {
         isBlurred={false}
         isBordered
       >
-        <NavbarBrand  className="min-w-0  basis-[unset] flex-grow-[unset] sm:basis-[1] sm:flex-grow-[1]">
+        <NavbarBrand  className="sm:flex hidden">
           <TbTrack color="primary" size={26} />
           <p className="font-bold text-xl text-inherit sm:block hidden">
             Airdrop Tracker
