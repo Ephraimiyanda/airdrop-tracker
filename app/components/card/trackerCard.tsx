@@ -13,6 +13,10 @@ import {
 } from "@nextui-org/react";
 import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { GoTrash } from "react-icons/go";
+import { LiaEditSolid } from "react-icons/lia";
+import { GoLink } from "react-icons/go";
+import { IoFilterOutline } from "react-icons/io5";
 export function TrackerCard({
   id,
   name,
@@ -115,7 +119,11 @@ export function TrackerCard({
           isIconOnly
           onPress={deleteAirdrop}
         >
-          {isDeleting ? <Spinner color="default" size="sm" /> : "🗑️"}
+          {isDeleting ? (
+            <Spinner color="default" size="sm" />
+          ) : (
+            <GoTrash color="black" size="18" />
+          )}
         </Button>
       </CardHeader>
       <CardBody className="flex flex-col gap-2 items-center  align-middle text-center   flex-1">
@@ -129,7 +137,11 @@ export function TrackerCard({
                   className="w-7 h-7 rounded-full text-center p-0 text-md min-w-0"
                   isIconOnly
                 >
-                  {isUpdating ? <Spinner color="default" size="sm" /> : "🖋️"}
+                  {isUpdating ? (
+                    <Spinner color="default" size="sm" />
+                  ) : (
+                    <LiaEditSolid color="black" size="18" />
+                  )}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -165,17 +177,7 @@ export function TrackerCard({
           className="w-3/4 "
           as={Link}
           href={link}
-          endContent={
-            <Image
-              radius="none"
-              className="w-5 h-full color-white object-cover"
-              alt="link"
-              src="/link.svg"
-              width={20}
-              height={20}
-              removeWrapper
-            ></Image>
-          }
+          endContent={<GoLink color="white" size={20} />}
         >
           View
         </Button>

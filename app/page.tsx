@@ -22,6 +22,8 @@ import { ReactNode, useEffect, useState } from "react";
 import { TrackerCard } from "./components/card/trackerCard";
 import { div } from "framer-motion/client";
 import { CiSearch } from "react-icons/ci";
+import { IoFilterOutline } from "react-icons/io5";
+
 interface airdrops {
   name: string;
   status: string;
@@ -145,18 +147,21 @@ export default function Home() {
         isBordered
       >
         <NavbarBrand>
-          <p className="font-bold text-inherit">Airdrop Tracker</p>
+          <p className="font-bold text-xl text-inherit">Airdrop Tracker</p>
         </NavbarBrand>
 
-        <NavbarContent justify="center" className="gap-2 sm:flex hidden">
+        <NavbarContent
+          justify="center"
+          className="gap-2 sm:flex hidden  flex-[2]"
+        >
           <NavbarItem className="flex justify-normal gap-2 items-center">
             <input
               required
               name="link"
-              placeholder="search for airdrop's"
+              placeholder="Search for airdrop's"
               type="url"
               className={
-                "dark:bg-[#4b535f] bg-white text-black dark:text-white h-10 py-3 px-2 rounded-lg shadow-sm border-1  outline-none"
+                "dark:bg-[#4b535f] bg-white text-black dark:text-white h-10 py-3 px-2 rounded-lg shadow-sm border-1 w-full border-gray-400 outline-none focus:border-black "
               }
               value={searchValue}
               onChange={(e) => {
@@ -166,6 +171,10 @@ export default function Home() {
             <Button color="primary" isIconOnly onPress={onOpen}>
               <CiSearch color="white" size={18} />
             </Button>
+            <Button color="default" isIconOnly onPress={onOpen}>
+              <IoFilterOutline color="black" size={18} />
+            </Button>
+            
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end" className="gap-2">
