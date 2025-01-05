@@ -25,9 +25,9 @@ import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { TrackerCard } from "./components/card/trackerCard";
 import { div } from "framer-motion/client";
-import { CiSearch } from "react-icons/ci";
+import { CiLogout, CiSearch } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
-
+import { TbTrack } from "react-icons/tb";
 interface airdrops {
   name: string;
   status: string;
@@ -171,20 +171,20 @@ export default function Home() {
       <Navbar
         position="sticky"
         classNames={{
-          wrapper: "px-3",
+          wrapper: "sm:px-3  px-1",
         }}
         isBlurred={false}
         isBordered
       >
-        <NavbarBrand>
-          <p className="font-bold text-xl text-inherit">Airdrop Tracker</p>
+        <NavbarBrand  className="min-w-0  basis-[unset] flex-grow-[unset] sm:basis-[1] sm:flex-grow-[1]">
+          <TbTrack color="primary" size={26} />
+          <p className="font-bold text-xl text-inherit sm:block hidden">
+            Airdrop Tracker
+          </p>
         </NavbarBrand>
 
-        <NavbarContent
-          justify="center"
-          className="gap-2 sm:flex hidden  flex-[2]"
-        >
-          <NavbarItem className="flex items-center gap-2 w-full">
+        <NavbarContent justify="center" as={"div"} className="gap-2   flex-[2]">
+          <NavbarItem className="flex items-center gap-1 w-full">
             <div className="flex items-center gap-2 bg-white dark:bg-[#4b535f] text-black dark:text-white h-10 px-3 rounded-lg shadow-sm border border-gray-400 focus-within:border-black w-full">
               <CiSearch color="gray" size={20} />
               <input
@@ -192,7 +192,7 @@ export default function Home() {
                 name="link"
                 placeholder="Search for airdrop's"
                 type="url"
-                className="bg-transparent flex-1 outline-none"
+                className="bg-transparent flex-1 outline-none max-w-[120px] sm:max-w-none"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
@@ -223,15 +223,32 @@ export default function Home() {
             </Dropdown>
           </NavbarItem>
         </NavbarContent>
-        <NavbarContent justify="end" className="gap-2">
+        <NavbarContent justify="end" className="gap-1">
           <NavbarItem>
-            <Button color="success" variant="flat" onPress={onOpen}>
-              Create
-            </Button>
+            <Button
+              color="success"
+              variant="flat"
+              onPress={onOpen}
+              className=" before:content-['+'] text-2xl md:text-base  font-light  md:before:content-['Create'] min-w-0"
+            ></Button>
           </NavbarItem>
           <NavbarItem>
-            <Button color="danger" variant="flat" onPress={() => signOut()}>
+            <Button
+              color="danger"
+              variant="flat"
+              onPress={() => signOut()}
+              className="md:flex hidden"
+            >
               LogOut
+            </Button>
+            <Button
+              color="danger"
+              variant="flat"
+              onPress={() => signOut()}
+              isIconOnly
+              className="md:hidden flex"
+            >
+              <CiLogout size={24} />
             </Button>
           </NavbarItem>
         </NavbarContent>
