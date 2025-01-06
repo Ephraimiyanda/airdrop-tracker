@@ -118,6 +118,7 @@ export function TrackerCard({
            bg-transparent shadow-md"
           isIconOnly
           onPress={deleteAirdrop}
+          title="delete"
         >
           {isDeleting ? (
             <Spinner color="default" size="sm" />
@@ -136,6 +137,7 @@ export function TrackerCard({
                   variant="flat"
                   className="w-7 h-7 rounded-full text-center p-0 text-md min-w-0"
                   isIconOnly
+                  title="edit"
                 >
                   {isUpdating ? (
                     <Spinner color="default" size="sm" />
@@ -178,6 +180,7 @@ export function TrackerCard({
           as={Link}
           href={link}
           endContent={<GoLink color="white" size={20} />}
+          title="view"
         >
           View
         </Button>

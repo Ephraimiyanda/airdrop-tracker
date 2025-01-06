@@ -176,7 +176,7 @@ export default function Home() {
         isBlurred={false}
         isBordered
       >
-        <NavbarBrand  className="sm:flex hidden">
+        <NavbarBrand className="sm:flex hidden">
           <TbTrack color="primary" size={26} />
           <p className="font-bold text-xl text-inherit sm:block hidden">
             Airdrop Tracker
@@ -199,7 +199,7 @@ export default function Home() {
             </div>
             <Dropdown placement="bottom-end" className="dark:bg-[#626974]">
               <DropdownTrigger>
-                <Button color="default" isIconOnly onPress={onOpen}>
+                <Button color="default" isIconOnly onPress={onOpen} title="filter">
                   <IoFilterOutline color="black" size={18} />
                 </Button>
               </DropdownTrigger>
@@ -223,12 +223,13 @@ export default function Home() {
             </Dropdown>
           </NavbarItem>
         </NavbarContent>
-        <NavbarContent justify="end" className="gap-1">
+        <NavbarContent justify="end" className="gap-2">
           <NavbarItem>
             <Button
               color="success"
               variant="flat"
               onPress={onOpen}
+              title="create tracker"
               className=" before:content-['+'] text-2xl md:text-base  font-light  md:before:content-['Create'] min-w-0"
             ></Button>
           </NavbarItem>
@@ -238,6 +239,7 @@ export default function Home() {
               variant="flat"
               onPress={() => signOut()}
               className="md:flex hidden"
+              title="logout"
             >
               LogOut
             </Button>
