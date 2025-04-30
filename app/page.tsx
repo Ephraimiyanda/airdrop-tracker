@@ -51,6 +51,7 @@ export default function Home() {
     () => Array.from(airdropStatusFilter).join(", ").replace(/_/g, ""),
     [airdropStatusFilter]
   );
+
   //secure page
   const session = useSession({
     required: true,
@@ -58,6 +59,7 @@ export default function Home() {
       redirect("/auth");
     },
   });
+
   //get token
   //@ts-ignore
   const token = session?.data?.user?.token;
@@ -115,7 +117,9 @@ export default function Home() {
 
       if (!response.ok) {
         setFormLoading(false);
-        setMessage(<p className="text-danger">Failed to create airdrop</p>);
+        setMessage(
+          <p className="text-danger">Failed to create airdrop tracker</p>
+        );
       } else {
         //
         setAirdropName("");
@@ -132,7 +136,9 @@ export default function Home() {
       }
     } catch (error) {
       //@ts-ignore
-      setMessage(<p className="text-danger">Failed to create airdrop</p>);
+      setMessage(
+        <p className="text-danger">Failed to create airdrop tracker</p>
+      );
       setFormLoading(false);
     } finally {
       setFormLoading(false);
@@ -199,7 +205,12 @@ export default function Home() {
             </div>
             <Dropdown placement="bottom-end" className="dark:bg-[#626974]">
               <DropdownTrigger>
-                <Button color="default" isIconOnly onPress={onOpen} title="filter">
+                <Button
+                  color="default"
+                  isIconOnly
+                  onPress={onOpen}
+                  title="filter"
+                >
                   <IoFilterOutline color="black" size={18} />
                 </Button>
               </DropdownTrigger>
@@ -403,4 +414,5 @@ export default function Home() {
     </div>
   );
 }
+
 Home.auth = true;

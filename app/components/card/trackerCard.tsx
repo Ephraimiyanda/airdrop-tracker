@@ -110,12 +110,11 @@ export function TrackerCard({
   return (
     <Card shadow="md" className="dark:bg-[#343d4a]  w-full h-[200px]">
       <CardHeader className="text-center mb-0 w-full pb-0">
-        <p className=" font-semibold text-lg dark:color-white text-center w-full">
+        <p className=" font-semibold text-lg dark:color-white text-center w-full mt-2">
           {name}
         </p>
         <Button
-          className="absolute top-[2] right-2 w-8 h-8 min-w-0
-           bg-transparent shadow-md"
+          className="absolute top-[1] right-2 w-8 h-8 min-w-0 bg-transparent shadow-md"
           isIconOnly
           onPress={deleteAirdrop}
           title="delete"
@@ -176,9 +175,10 @@ export function TrackerCard({
         </div>
         <Button
           color="primary"
-          className="w-3/4 "
+          className="w-3/4"
           as={Link}
           href={link}
+          target="_blank"
           endContent={<GoLink color="white" size={20} />}
           title="view"
         >

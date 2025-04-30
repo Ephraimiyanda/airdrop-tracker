@@ -3,7 +3,6 @@ import React, { ReactNode, useEffect, useState } from "react";
 import {
   Tabs,
   Tab,
-  Input,
   Link,
   Button,
   Card,
@@ -22,7 +21,7 @@ export default function App() {
 
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
-  const session = useSession();
+
   //set error message
   useEffect(() => {
     if (error) {
