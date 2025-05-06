@@ -16,19 +16,21 @@ import { useSession } from "next-auth/react";
 import { GoTrash } from "react-icons/go";
 import { LiaEditSolid } from "react-icons/lia";
 import { GoLink } from "react-icons/go";
-import { IoFilterOutline } from "react-icons/io5";
+
 export function TrackerCard({
   id,
   name,
   link,
   status,
-  removeAirdrop,
+  removeAirdropOnDelete,
+  updateAirdropOnStatusChange,
 }: {
   id: string;
   name: string;
   link: string;
   status: string;
-  removeAirdrop: () => void;
+  removeAirdropOnDelete: () => void;
+  updateAirdropOnStatusChange: (_id: string, newStatus: string|undefined) => void;
 }) {
   const [airdropStatus, setAirdropStatus] = useState<any>(status);
   const [isDeleting, setisDeleting] = useState(false);
@@ -57,6 +59,7 @@ export function TrackerCard({
         throw new Error(errorData.message || "Failed to update airdrop");
       } else {
         setAirdropStatus(status);
+        updateAirdropOnStatusChange(id,status)
       }
       setIsUpdating(false);
     } catch (error) {
@@ -82,7 +85,7 @@ export function TrackerCard({
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to delete airdrop");
       } else {
-        removeAirdrop();
+        removeAirdropOnDelete();
       }
     } catch (error) {
       setisDeleting(false);

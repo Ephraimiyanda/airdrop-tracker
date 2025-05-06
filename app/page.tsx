@@ -391,12 +391,26 @@ export default function Home() {
               name={airdrop.name}
               link={airdrop.link}
               status={airdrop.status}
-              removeAirdrop={() => {
+              removeAirdropOnDelete={() => {
                 setAirdrops((prevAirdrops) =>
                   prevAirdrops.filter(
                     (airdrops) => airdrops._id !== airdrop._id
                   )
                 );
+              }}
+              updateAirdropOnStatusChange={(
+                _id: string,
+                newStatus: string | undefined
+              ) => {
+                if (newStatus) {
+                  setAirdrops((prevAirdrops) =>
+                    prevAirdrops.map((airdrop) =>
+                      airdrop._id === _id
+                        ? { ...airdrop, status: newStatus }
+                        : airdrop
+                    )
+                  );
+                }
               }}
             />
           ))}
